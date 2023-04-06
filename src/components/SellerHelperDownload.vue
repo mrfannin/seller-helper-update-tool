@@ -19,7 +19,7 @@
       delimeter: ",",
       header: true,
       complete: (results) => {
-        emit(fileDownloaded, results);
+        emit('fileDownloaded', results.data);
       }
     })
   }
