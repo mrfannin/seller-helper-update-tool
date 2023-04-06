@@ -27,7 +27,7 @@ function fileCheck(results) {
     return;
   } else {
     let filteredData = results.data.filter(
-      (line) => line.shippingGroup === 'The Seller Helper'
+      (line) => line.shippingGroup === 'The Seller Helper' && line.price > 0
     );
     if (filteredData.length === 0) {
       errorMessage.value = 'No The Seller Helper products found';
