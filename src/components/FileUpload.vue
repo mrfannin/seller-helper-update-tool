@@ -2,30 +2,38 @@
 import * as Papa from 'papaparse';
 import { ref } from 'vue';
 
+const emit = defineEmits(['fileUploaded']);
+
 const data = ref(null);
 
 const errorMessage = ref('');
 
+// Triggers when file is uploaded, parses csv and passes to fileCheck
 function fileUpload(event) {
   let file = event.target.files[0];
   Papa.parse(file, {
-    delimeter: ",",
+    delimeter: ',',
     header: true,
-    complete: (results) => { fileCheck(results) }
+    complete: (results) => {
+      fileCheck(results);
+    },
   });
 }
 
+// Checks if file has a shippingGroup column, then filters out the seller helper result and emits it to the parent
 function fileCheck(results) {
-  console.log(results);
   if (!results.meta.fields.includes('shippingGroup')) {
     errorMessage.value = 'Not a valid Warhead Export';
-  }
-  else {
-    let filteredData = results.data.filter(line => line.shippingGroup === "The Seller Helper");
-    console.log(filteredData);
+    return;
+  } else {
+    let filteredData = results.data.filter(
+      (line) => line.shippingGroup === 'The Seller Helper'
+    );
     if (filteredData.length === 0) {
-      errorMessage.value = "No The Seller Helper products found";
+      errorMessage.value = 'No The Seller Helper products found';
+      return;
     }
+    emit('fileUploaded', filteredData);
   }
 }
 </script>
@@ -34,7 +42,13 @@ function fileCheck(results) {
   <div class="file-upload">
     <label for="file-input">Upload Warhead export:</label>
     <div class="input-section">
-      <input type="file" id="file-input" name="file-input" accept=".csv" @change="fileUpload($event)">
+      <input
+        type="file"
+        id="file-input"
+        name="file-input"
+        accept=".csv"
+        @change="fileUpload($event)"
+      />
       <p class="error" v-if="errorMessage !== ''">{{ errorMessage }}</p>
     </div>
   </div>

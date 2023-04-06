@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@zip.js/zip.js": "^2.6.84",
     "papaparse": "^5.4.1",
     "vue": "^3.2.47"
   },
