@@ -18,16 +18,17 @@ function processData(data) {
   let updatedData = [];
 
   userData.value.forEach(userProduct => {
-    let shProduct = sellerHelperData.value.find(sellerHelperProduct => sellerHelperProduct.SKU === userProduct.sku)
+    let shProduct = sellerHelperData.value.find(sellerHelperProduct => sellerHelperProduct.sku === userProduct.sku)
 
     if (shProduct !== undefined) {
-      updatedData.push({sku: shProduct.SKU, quantity: shProduct.Qty, cost: shProduct['Free Member Price']});
+      updatedData.push({sku: shProduct.sku, quantity: shProduct.quantity, cost: shProduct.cost});
     } else {
       updatedData.push({sku: userProduct.sku, quantity: 0, cost: userProduct.cost})
     }
     
   });
 
+  console.log("UPDATED DATA");
   console.log(updatedData);
 
 
