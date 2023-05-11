@@ -2,6 +2,8 @@
 import FileUpload from './FileUpload.vue';
 import SellerHelperDownload from './SellerHelperDownload.vue';
 import { ref } from 'vue';
+import { saveAs } from 'file-saver';
+import * as Papa from 'papaparse';
 
 // user spreadsheet, brought in from File Upload component
 const userData = ref(null);
@@ -28,9 +30,12 @@ function processData(data) {
     
   });
 
-  console.log("UPDATED DATA");
-  console.log(updatedData);
+  let updatedCSV = new Blob([Papa.unparse(updatedData)], {type:"text/csv"});
 
+  console.log("UPDATED DATA");
+  console.log(updatedCSV);
+
+  saveAs(updatedCSV, 'updated-seller-helper');
 
 }
 

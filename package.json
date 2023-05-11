@@ -10,6 +10,7 @@
   "dependencies": {
     "@google-cloud/storage": "^6.10.0",
     "@zip.js/zip.js": "^2.6.84",
+    "file-saver": "^2.0.5",
     "papaparse": "^5.4.1",
     "vue": "^3.2.47"
   },
