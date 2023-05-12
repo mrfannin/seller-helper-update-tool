@@ -11,40 +11,45 @@ const userData = ref(null);
 // seller helper spreadsheet, brought in from Seller Helper Download component
 const sellerHelperData = ref(null);
 
-// When sellerhelper file downloaded, process the files and create an update file
+// processed data, added in processing promise
+const updatedData = ref([]);
+
+const isProcessing = ref(false);
+
+const processWorker = new Worker('src/workers/processWorker.js');
+
+// Receives seller helper data from SellerHelperDownload component, sends data to worker, and creates event listener to receive data and save file
 function processData(data) {
+
   sellerHelperData.value = data;
 
-  console.log(data);
-
-  let updatedData = [];
-
-  userData.value.forEach(userProduct => {
-    let shProduct = sellerHelperData.value.find(sellerHelperProduct => sellerHelperProduct.sku === userProduct.sku)
-
-    if (shProduct !== undefined) {
-      updatedData.push({sku: shProduct.sku, quantity: shProduct.quantity, cost: shProduct.cost});
-    } else {
-      updatedData.push({sku: userProduct.sku, quantity: 0, cost: userProduct.cost})
-    }
-    
+  processWorker.postMessage({
+    command: 'process',
+    shData: JSON.parse(JSON.stringify(sellerHelperData.value)),
+    userData: JSON.parse(JSON.stringify(userData.value)),
   });
 
-  let updatedCSV = new Blob([Papa.unparse(updatedData)], {type:"text/csv"});
+  processWorker.addEventListener('message', (message) => {
+    updatedData.value = message.data;
+    isProcessing.value = false;
 
-  console.log("UPDATED DATA");
-  console.log(updatedCSV);
+    const updatedCSV = new Blob([Papa.unparse(updatedData.value)], {
+      type: 'text/csv',
+    });
 
-  saveAs(updatedCSV, 'updated-seller-helper');
-
+    saveAs(updatedCSV, 'updated-seller-helper');
+  });
 }
-
 </script>
 
 <template>
-  <FileUpload @file-uploaded="(data) => userData = data"></FileUpload>
-  <SellerHelperDownload v-if="userData !== null" @file-downloaded="processData"></SellerHelperDownload>
+  <FileUpload @file-uploaded="(data) => (userData = data)"></FileUpload>
+  <SellerHelperDownload
+    v-show="userData !== null"
+    @file-downloaded="processData"
+    @start-processing="isProcessing = true"
+  ></SellerHelperDownload>
+  <p v-show="isProcessing">Processing</p>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
