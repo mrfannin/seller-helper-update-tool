@@ -20,11 +20,29 @@ const tabs = {
   UserOutput,
 };
 
-// Spreadsheet data, starts null, but fills in from
+// Spreadsheet data, starts null, but fills in from components as the process goes on
+const data = {
+  userData: null,
+  sellerHelperData: null,
+  updatedData: null
+}
+
+function processUserData(data) {
+  data.userData = data;
+  currentTab.value = 'OutputOptions';
+  console.log(data.userData);
+}
 </script>
 
 <template>
-  <component :is="tabs[currentTab]"></component>
+  <component :is="tabs[currentTab]" id="currentTab" @file-uploaded="processUserData"></component>
 </template>
 
-<style scoped></style>
+<style scoped>
+  #currentTab {
+    padding-top: 20px;
+    width: 95%;
+    margin: auto;
+    text-align: center;
+  }
+</style>
