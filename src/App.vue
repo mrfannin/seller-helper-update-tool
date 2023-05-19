@@ -1,5 +1,4 @@
 <script setup>
-  import UpdateTool from './components/UpdateTool.vue';
   import ToolMain from './components/ToolMain.vue';
 </script>
 
