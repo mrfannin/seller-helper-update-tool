@@ -16,6 +16,8 @@ const dataReady = ref(false);
 
 const fileName = ref('');
 
+const isProcessing = ref(false);
+
 let userData = null;
 
 // Triggers when file is uploaded. Checks if it is a csv. Uses PapaParse to parse into object, and checks if it is valid.
@@ -42,7 +44,6 @@ function checkFile(event) {
 // Checks if data includes a header for shippingGroup, and that there are products from the sellerhelper
 // Sets a message if there are errors, sets userData to filtered data otherwise
 function checkData(results) {
-  console.log(typeof results.data[0].shippingGroup);
   if (!results.meta.fields.includes('shippingGroup')) {
     message.value = 'Not a valid Warhead Export';
   } else {
@@ -74,11 +75,11 @@ function fileUploaded() {
 
 <template>
   <div class="section">
-    <p class="info">
-      This tool can be used to download updated data of your products from The
-      Seller Helper. A video about how to use this tool can be found here.
-      ***INSERT VIDEO LINK***
-    </p>
+    <div class="info">
+      <p>This tool can be used to download updated data of your products from The
+      Seller Helper.</p>
+      <p>Click here to watch a video on using this tool.</p>
+    </div>
     <div class="mainSection" @submit.prevent>
       <div>
         <h2>Upload Warhead Export</h2>
@@ -92,7 +93,7 @@ function fileUploaded() {
         <p class="fileName">{{ fileName }}</p>
         <div class="continueButtons">
         <p @click.prevent="resetData" class="button">Change File</p>
-        <p @click.prevent="fileUploaded" class="button">Next</p>
+        <p @click.prevent="fileUploaded" class="button">Continue</p>
         </div>
       </div>
     </div>
@@ -105,38 +106,11 @@ h2 {
   margin-bottom: 5px;
 }
 
-.mainSection {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid black;
-  display: flex;
-  flex-direction: column;
-}
-
 .uploadSection {
   display: flex;
   flex-direction: column;
   padding-top: 10px;
   align-items: center;
-}
-
-.button {
-  background-color: #9fb6b8;
-  border: 1px solid #859899;
-  border-radius: 4px;
-  width: 150px;
-  height: 30px;
-  line-height: 30px;
-  font-weight: 500;
-  cursor: default;
-}
-
-.button:hover {
-  background-color: #a5bcbe;
-}
-
-.button:active {
-  background-color: #acc5c7;
 }
 
 .errorMessage {
@@ -162,13 +136,6 @@ input {
   margin: auto;
   padding: 5px 10px;
   border-radius: 5px;
-}
-
-.continueButtons {
-  display: flex;
-  margin-top: 10px;
-  width: 100%;
-  justify-content: space-around;
 }
 
 </style>
