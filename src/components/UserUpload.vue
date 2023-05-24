@@ -8,7 +8,7 @@
 import * as Papa from 'papaparse';
 import { ref } from 'vue';
 
-const emit = defineEmits(['fileUploaded'])
+const emit = defineEmits(['fileUploaded']);
 
 const message = ref('');
 
@@ -52,8 +52,7 @@ function checkData(results) {
       (line) => line.shippingGroup === 'The Seller Helper'
     );
     if (filteredData.length === 0) {
-      message.value =
-        'No products found from The Seller Helper';
+      message.value = 'No products found from The Seller Helper';
     } else {
       userData = filteredData;
       dataReady.value = true;
@@ -69,15 +68,17 @@ function resetData() {
 
 // Emits an event to ToolMain, sends filtered data back as an argument
 function fileUploaded() {
-  emit('fileUploaded', userData)
+  emit('fileUploaded', userData);
 }
 </script>
 
 <template>
   <div class="section">
     <div class="info">
-      <p>This tool can be used to download updated data of your products from The
-      Seller Helper.</p>
+      <p>
+        This tool can be used to download updated data of your products from The
+        Seller Helper.
+      </p>
       <p>Click here to watch a video on using this tool.</p>
     </div>
     <div class="mainSection" @submit.prevent>
@@ -85,15 +86,25 @@ function fileUploaded() {
         <h2>Upload Warhead Export</h2>
       </div>
       <div class="uploadSection" v-if="!dataReady">
-        <label for="fileUpload" id="uploadLabel" class="button">Choose File</label>
-        <input type="file" id="fileUpload" accept=".csv" @change="checkFile" />
+        <input
+          type="file"
+          class="invisible file:visible file:rounded-full file:border-0 file:bg-slate-500 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-slate-200 hover:file:bg-slate-600"
+          id="fileUpload"
+          accept=".csv"
+          @change="checkFile"
+        />
         <p class="errorMessage" v-if="message">{{ message }}</p>
       </div>
       <div class="continueSection" v-if="dataReady">
         <p class="fileName">{{ fileName }}</p>
         <div class="continueButtons">
-        <p @click.prevent="resetData" class="button">Change File</p>
-        <p @click.prevent="fileUploaded" class="button">Continue</p>
+          <button
+            @click.prevent="resetData"
+            class="rounded-full bg-sky-500 hover:bg-sky-700 active:bg-sky-800"
+          >
+            Change File
+          </button>
+          <button @click.prevent="fileUploaded" class="button">Continue</button>
         </div>
       </div>
     </div>
@@ -101,7 +112,7 @@ function fileUploaded() {
 </template>
 
 <style scoped>
-h2 {
+/* h2 {
   font-size: 22px;
   margin-bottom: 5px;
 }
@@ -136,6 +147,5 @@ input {
   margin: auto;
   padding: 5px 10px;
   border-radius: 5px;
-}
-
+} */
 </style>

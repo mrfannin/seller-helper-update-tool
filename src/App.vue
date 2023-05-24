@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div id="app">
+  <div id="app" class="bg-blue-100 w-1/2 min-w-max">
     <header>
       <h1>Seller Helper Update Tool</h1>
     </header>
@@ -14,7 +14,7 @@
 </template>
 
 <style scoped>
-  #app {
+  /* #app {
     position: fixed;
     left: 32%;
     top: 12%;
@@ -34,5 +34,5 @@
   main {
     width: 85%;
     margin: auto;
-  }
+  } */
 </style>

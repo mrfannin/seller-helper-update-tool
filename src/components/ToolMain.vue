@@ -67,10 +67,10 @@ async function processOptions(options) {
 </template>
 
 <style scoped>
-#currentTab {
+/* #currentTab {
   padding-top: 20px;
   width: 95%;
   margin: auto;
   text-align: center;
-}
+} */
 </style>

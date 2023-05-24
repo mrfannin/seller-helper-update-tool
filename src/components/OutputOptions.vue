@@ -79,14 +79,14 @@ function submitOptions() {
       </form>
     </div>
     <div class="continueButtons">
-      <p class="button" @click.prevent="backTab">Back</p>
-      <p class="button" @click.prevent="submitOptions">Continue</p>
+      <button class="button" @click.prevent="backTab">Back</button>
+      <button class="button" @click.prevent="submitOptions">Continue</button>
     </div>
   </div>
 </template>
 
 <style scoped>
-form div {
+/* form div {
   display: flex;
   width: 80%;
   margin: auto;
@@ -107,5 +107,5 @@ input {
 
 select {
   width: 54px;
-}
+} */
 </style>

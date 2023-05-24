@@ -32,8 +32,8 @@ function downloadFile() {
     <div class="info"><p>Your download is ready. Click the button below to download the spreadsheet. This file can than be imported into Warhead.</p></div>
     <div class="mainSection">
     <div class="continueButtons">
-      <p class="button" @click.prevent="backTab">Back</p>
-      <p class="button" @click.prevent="downloadFile">Download File</p>
+      <button class="button" @click.prevent="backTab">Back</button>
+      <button class="button" @click.prevent="downloadFile">Download File</button>
     </div>
     </div>
   </div>
