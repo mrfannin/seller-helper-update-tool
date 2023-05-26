@@ -9,6 +9,7 @@ import { ref } from 'vue';
 import UserUpload from './UserUpload.vue';
 import OutputOptions from './OutputOptions.vue';
 import UserOutput from './UserOutput.vue';
+import Navigation from './Navigation.vue';
 
 import { processData } from '../scripts/UpdateProcessor.js';
 
@@ -53,14 +54,18 @@ async function processOptions(options) {
 </script>
 
 <template>
-  <component
-    :is="tabs[currentTab]"
-    id="currentTab"
-    @back-tab="processBackTab"
-    @file-uploaded="processUserData"
-    @options-submitted="processOptions"
-    :data="updatedData"
-  ></component>
+  <div class="flex w-full h-full justify-between divide-x-2 divide-slate-400/25">
+    <Navigation class="basis-1/6 min-w-max px-6 text-center"></Navigation>
+    <component
+      :is="tabs[currentTab]"
+      id="currentTab"
+      @back-tab="processBackTab"
+      @file-uploaded="processUserData"
+      @options-submitted="processOptions"
+      :data="updatedData"
+      class="pt-6 px-20 basis-5/6 text-center flex flex-col items-center"
+    ></component>
+  </div>
   <div class="loaderPanel" v-if="isProcessing">
     <span class="loader"></span>
   </div>

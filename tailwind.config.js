@@ -5,6 +5,9 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,vue}",
   ],
   theme: {
+    fontFamily: {
+      'inter': 'Inter, sans-serif',
+    },
     extend: {},
   },
   plugins: [],

@@ -25,7 +25,7 @@ function checkFile(event) {
   let file = event.target.files[0];
 
   if (file.type !== 'text/csv') {
-    message.value = 'File is not a .csv';
+    message.value = 'File is not a CSV';
     return;
   }
 
@@ -45,14 +45,14 @@ function checkFile(event) {
 // Sets a message if there are errors, sets userData to filtered data otherwise
 function checkData(results) {
   if (!results.meta.fields.includes('shippingGroup')) {
-    message.value = 'Not a valid Warhead Export';
+    message.value = 'File is not a Warhead Export';
   } else {
     let testRegEx = /([Tt]he)? ?[Ss]eller ?[Hh]elper/;
     let filteredData = results.data.filter(
       (line) => line.shippingGroup === 'The Seller Helper'
     );
     if (filteredData.length === 0) {
-      message.value = 'No products found from The Seller Helper';
+      message.value = 'No products from The Seller Helper. Make sure the Shipping Group is named correctly.';
     } else {
       userData = filteredData;
       dataReady.value = true;
@@ -74,37 +74,31 @@ function fileUploaded() {
 
 <template>
   <div class="section">
-    <div class="info">
-      <p>
-        This tool can be used to download updated data of your products from The
-        Seller Helper.
-      </p>
-      <p>Click here to watch a video on using this tool.</p>
+    <div class="info border-b border-black pb-4 mb-4">
+      <h2 class="text-xl font-bold pb-4">Upload Warhead Export</h2>
+      <p>The first step is to upload a Warhead export with Seller Helper products on it. This can be done by going to Dashboard > Store > Products, and clicking the Export button at the top of the page. Leave the options as they are, and then click Export. This will download a spreadsheet of all of the products, which can then be uploaded below.</p>
     </div>
     <div class="mainSection" @submit.prevent>
-      <div>
-        <h2>Upload Warhead Export</h2>
-      </div>
       <div class="uploadSection" v-if="!dataReady">
         <input
           type="file"
-          class="invisible file:visible file:rounded-full file:border-0 file:bg-slate-500 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-slate-200 hover:file:bg-slate-600"
+          class="invisible w-32 file:visible file:btn-primary"
           id="fileUpload"
           accept=".csv"
           @change="checkFile"
         />
-        <p class="errorMessage" v-if="message">{{ message }}</p>
+        <p class="errorMessage mt-4 w-fit px-4 py-2 rounded-sm bg-red-400/75" v-if="message">{{ message }}</p>
       </div>
       <div class="continueSection" v-if="dataReady">
-        <p class="fileName">{{ fileName }}</p>
-        <div class="continueButtons">
+        <p class="bg-slate-50/75 py-2 px-3 rounded-sm mb-4">{{ fileName }}</p>
+        <div class="space-x-6">
           <button
             @click.prevent="resetData"
-            class="rounded-full bg-sky-500 hover:bg-sky-700 active:bg-sky-800"
+            class="btn-primary"
           >
             Change File
           </button>
-          <button @click.prevent="fileUploaded" class="button">Continue</button>
+          <button @click.prevent="fileUploaded" class="btn-primary">Continue</button>
         </div>
       </div>
     </div>
