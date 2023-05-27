@@ -29,11 +29,13 @@ function downloadFile() {
 
 <template>
   <div class="section">
-    <div class="info"><p>Your download is ready. Click the button below to download the spreadsheet. This file can than be imported into Warhead.</p></div>
+    <div class="info border-b border-black pb-4 mb-4">
+      <h2 class="text-lg font-bold pb-4">Download File</h2>
+      <p>The download is ready. Click the button below to download the spreadsheet. This file can than be imported into Warhead.</p></div>
     <div class="mainSection">
-    <div class="continueButtons">
-      <button class="button" @click.prevent="backTab">Back</button>
-      <button class="button" @click.prevent="downloadFile">Download File</button>
+    <div class="continueButtons space-x-6">
+      <button class="btn-primary" @click.prevent="backTab">Back</button>
+      <button class="btn-primary" @click.prevent="downloadFile">Download File</button>
     </div>
     </div>
   </div>

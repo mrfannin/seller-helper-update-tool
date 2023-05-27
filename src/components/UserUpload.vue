@@ -76,9 +76,9 @@ function fileUploaded() {
   <div class="section">
     <div class="info border-b border-black pb-4 mb-4">
       <h2 class="text-xl font-bold pb-4">Upload Warhead Export</h2>
-      <p>The first step is to upload a Warhead export with Seller Helper products on it. This can be done by going to Dashboard > Store > Products, and clicking the Export button at the top of the page. Leave the options as they are, and then click Export. This will download a spreadsheet of all of the products, which can then be uploaded below.</p>
+      <p>Upload a default Warhead export with Seller Helper products on it. This can be done by going to Dashboard > Store > Products, and clicking the Export button at the top of the page. Leave the options as they are, and then click Export. This will download a spreadsheet of all of the products, which can then be uploaded below.</p>
     </div>
-    <div class="mainSection" @submit.prevent>
+    <div class="mainSection">
       <div class="uploadSection" v-if="!dataReady">
         <input
           type="file"
