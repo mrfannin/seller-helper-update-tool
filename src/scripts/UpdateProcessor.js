@@ -5,7 +5,7 @@ import * as Papa from 'papaparse';
 
 async function processData(data) {
   return new Promise(async (resolve, reject) => {
-    const processWorker = new Worker('src/workers/processWorker.js');
+    const processWorker = new Worker(new URL('processWorker.js', import.meta.url));
 
     // download public file
     const response = await fetch(
