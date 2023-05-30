@@ -59,7 +59,10 @@ async function processOptions(options) {
   <div
     class="flex h-full w-full justify-between divide-x-2 divide-slate-400/25"
   >
-    <Navigation class="min-w-max basis-1/6 px-6 text-center" :current-tab="currentTab"></Navigation>
+    <Navigation
+      class="min-w-max basis-1/6 px-6 text-center"
+      :current-tab="currentTab"
+    ></Navigation>
     <component
       :is="tabs[currentTab]"
       id="currentTab"
@@ -91,12 +94,3 @@ async function processOptions(options) {
     </svg>
   </div>
 </template>
-
-<style scoped>
-/* #currentTab {
-  padding-top: 20px;
-  width: 95%;
-  margin: auto;
-  text-align: center;
-} */
-</style>

@@ -52,7 +52,8 @@ function checkData(results) {
       (line) => line.shippingGroup === 'The Seller Helper'
     );
     if (filteredData.length === 0) {
-      message.value = 'No products from The Seller Helper. Make sure the Shipping Group is named correctly.';
+      message.value =
+        'No products from The Seller Helper. Make sure the Shipping Group is named correctly.';
     } else {
       userData = filteredData;
       dataReady.value = true;
@@ -74,78 +75,48 @@ function fileUploaded() {
 function backTab() {
   emit('changeTab', 'Intro');
 }
-
 </script>
 
 <template>
   <div class="section">
-    <div class="info border-b border-black pb-4 mb-4">
-      <h2 class="text-xl font-bold pb-4">Upload Warhead Export</h2>
-      <p>Upload a default Warhead export with Seller Helper products on it. This can be done by going to Dashboard > Store > Products, and clicking the Export button at the top of the page. Leave the options as they are, and then click Export. This will download a spreadsheet of all of the products, which can then be uploaded below.</p>
+    <div class="info mb-4 border-b border-black pb-4">
+      <h2 class="pb-4 text-xl font-bold">Upload Warhead Export</h2>
+      <p>
+        Upload a default Warhead export with Seller Helper products on it. This
+        can be done by going to Dashboard > Store > Products, and clicking the
+        Export button at the top of the page. Leave the options as they are, and
+        then click Export. This will download a spreadsheet of all of the
+        products, which can then be uploaded below.
+      </p>
     </div>
     <div class="mainSection">
       <div class="uploadSection space-x-6" v-if="!dataReady">
         <button class="btn-primary" @click.prevent="backTab">Back</button>
         <input
           type="file"
-          class="invisible w-32 file:visible file:btn-primary"
+          class="file:btn-primary invisible w-32 file:visible"
           id="fileUpload"
           accept=".csv"
           @change="checkFile"
         />
-        <p class="errorMessage mt-4 w-fit px-4 py-2 rounded-sm bg-red-400/75" v-if="message">{{ message }}</p>
+        <p
+          class="errorMessage mt-4 w-fit rounded-sm bg-red-400/75 px-4 py-2"
+          v-if="message"
+        >
+          {{ message }}
+        </p>
       </div>
       <div class="continueSection" v-if="dataReady">
-        <p class="bg-slate-50/75 py-2 px-3 rounded-sm mb-4">{{ fileName }}</p>
+        <p class="mb-4 rounded-sm bg-slate-50/75 px-3 py-2">{{ fileName }}</p>
         <div class="space-x-6">
-          <button
-            @click.prevent="resetData"
-            class="btn-primary"
-          >
+          <button @click.prevent="resetData" class="btn-primary">
             Change File
           </button>
-          <button @click.prevent="fileUploaded" class="btn-primary">Continue</button>
+          <button @click.prevent="fileUploaded" class="btn-primary">
+            Continue
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-/* h2 {
-  font-size: 22px;
-  margin-bottom: 5px;
-}
-
-.uploadSection {
-  display: flex;
-  flex-direction: column;
-  padding-top: 10px;
-  align-items: center;
-}
-
-.errorMessage {
-  margin-top: -10px;
-  background-color: #e15454a9;
-  padding: 5px 10px;
-  border-radius: 4px;
-}
-
-input {
-  opacity: 0;
-}
-
-.continueSection {
-  display: flex;
-  flex-direction: column;
-}
-
-.fileName {
-  background-color: rgba(236, 235, 235, 0.582);
-  border: 1px solid rgba(236, 235, 235, 0.904);
-  width: fit-content;
-  margin: auto;
-  padding: 5px 10px;
-  border-radius: 5px;
-} */
-</style>

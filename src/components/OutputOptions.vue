@@ -29,8 +29,8 @@ function submitOptions() {
 
 <template>
   <div class="section">
-    <div class="info border-b border-black pb-4 mb-4">
-      <h2 class="text-xl font-bold pb-4">Choose Options</h2>
+    <div class="info mb-4 border-b border-black pb-4">
+      <h2 class="pb-4 text-xl font-bold">Choose Options</h2>
       <p>Select the options below for the updated spreadsheet.</p>
     </div>
     <div class="mainSection">
@@ -61,12 +61,19 @@ function submitOptions() {
           <label for="enabledToggle" id="EnabledToggleLabel"
             >Use Automated Enabling?</label
           >
-          <select id="enabledToggle" v-model="options.enabledToggle" class="w-20">
+          <select
+            id="enabledToggle"
+            v-model="options.enabledToggle"
+            class="w-20"
+          >
             <option value="Yes" selected>Yes</option>
             <option value="No">No</option>
           </select>
         </div>
-        <div class="flex justify-between" v-if="options.enabledToggle === 'Yes'">
+        <div
+          class="flex justify-between"
+          v-if="options.enabledToggle === 'Yes'"
+        >
           <label for="enabledCutoff" id="enabledCutoffLabel"
             >Minimum Quantity to Enable:</label
           >
@@ -81,34 +88,11 @@ function submitOptions() {
         </div>
       </form>
     </div>
-    <div class="continueButtons space-x-6 mt-8">
+    <div class="continueButtons mt-8 space-x-6">
       <button class="btn-primary" @click.prevent="backTab">Back</button>
-      <button class="btn-primary" @click.prevent="submitOptions">Continue</button>
+      <button class="btn-primary" @click.prevent="submitOptions">
+        Continue
+      </button>
     </div>
   </div>
 </template>
-
-<style scoped>
-/* form div {
-  display: flex;
-  width: 80%;
-  margin: auto;
-  justify-content: space-between;
-  font-size: 18px;
-  margin-top: 10px;
-}
-
-form {
-  margin-bottom: 10px;
-}
-
-input {
-  width: 48px;
-  height: 20px;
-  padding-left: 2px;
-}
-
-select {
-  width: 54px;
-} */
-</style>
