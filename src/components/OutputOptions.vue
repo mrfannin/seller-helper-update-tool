@@ -6,6 +6,7 @@
  */
 
 import { ref } from 'vue';
+import HelpTooltip from './HelpTooltip.vue';
 
 const emit = defineEmits(['changeTab', 'optionsSubmitted']);
 
@@ -36,9 +37,15 @@ function submitOptions() {
     <div class="mainSection">
       <form class="flex flex-col space-y-4 text-lg">
         <div class="flex justify-between space-x-60">
-          <label for="priceToggle" id="priceToggleLabel"
-            >Use Automated Pricing?</label
-          >
+          <div class="relative">
+            <label for="priceToggle" id="priceToggleLabel"
+              >Use Automated Pricing?</label
+            >
+            <HelpTooltip class="absolute right-[206px] top-0"
+              >Adds a Price column to the spreadsheet, with the formula Price =
+              Cost * Percentage</HelpTooltip
+            >
+          </div>
           <select id="priceToggle" v-model="options.priceToggle" class="w-20">
             <option value="Yes" selected>Yes</option>
             <option value="No">No</option>
@@ -58,9 +65,16 @@ function submitOptions() {
           />
         </div>
         <div class="flex justify-between">
-          <label for="enabledToggle" id="EnabledToggleLabel"
-            >Use Automated Enabling?</label
-          >
+          <div class="relative">
+            <label for="enabledToggle" id="EnabledToggleLabel"
+              >Use Automated Enabling?</label
+            >
+            <HelpTooltip class="absolute right-[220px] top-0"
+              >Adds an Enabled column. Sets option to 1 if the quantity is equal
+              to or above the minimum, and sets it to 0 if it is
+              below.</HelpTooltip
+            >
+          </div>
           <select
             id="enabledToggle"
             v-model="options.enabledToggle"

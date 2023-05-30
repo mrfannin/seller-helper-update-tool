@@ -7,7 +7,7 @@ function nextTab() {
 </script>
 
 <template>
-  <div>
+  <div class="mb-12 flex justify-center">
     <div class="space-y-2 text-lg">
       <p>
         This tool can be used to download updated data for products from The
@@ -20,7 +20,7 @@ function nextTab() {
       </p>
     </div>
     <div class="mt-4">
-      <button class="btn-primary" @click.prevent="nextTab">Next</button>
+      <button class="btn-primary" @click.prevent="nextTab">Start</button>
     </div>
   </div>
 </template>
