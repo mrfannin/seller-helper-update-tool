@@ -8,7 +8,7 @@
 import * as Papa from 'papaparse';
 import { ref } from 'vue';
 
-const emit = defineEmits(['fileUploaded']);
+const emit = defineEmits(['fileUploaded', 'changeTab']);
 
 const message = ref('');
 
@@ -70,6 +70,11 @@ function resetData() {
 function fileUploaded() {
   emit('fileUploaded', userData);
 }
+
+function backTab() {
+  emit('changeTab', 'Intro');
+}
+
 </script>
 
 <template>
@@ -79,7 +84,8 @@ function fileUploaded() {
       <p>Upload a default Warhead export with Seller Helper products on it. This can be done by going to Dashboard > Store > Products, and clicking the Export button at the top of the page. Leave the options as they are, and then click Export. This will download a spreadsheet of all of the products, which can then be uploaded below.</p>
     </div>
     <div class="mainSection">
-      <div class="uploadSection" v-if="!dataReady">
+      <div class="uploadSection space-x-6" v-if="!dataReady">
+        <button class="btn-primary" @click.prevent="backTab">Back</button>
         <input
           type="file"
           class="invisible w-32 file:visible file:btn-primary"

@@ -34,7 +34,7 @@ const data = {
   sellerHelperData: null,
 };
 
-function processBackTab(tab) {
+function processChangeTab(tab) {
   currentTab.value = tab;
 }
 
@@ -59,11 +59,11 @@ async function processOptions(options) {
   <div
     class="flex h-full w-full justify-between divide-x-2 divide-slate-400/25"
   >
-    <Navigation class="min-w-max basis-1/6 px-6 text-center"></Navigation>
+    <Navigation class="min-w-max basis-1/6 px-6 text-center" :current-tab="currentTab"></Navigation>
     <component
       :is="tabs[currentTab]"
       id="currentTab"
-      @back-tab="processBackTab"
+      @change-tab="processChangeTab"
       @file-uploaded="processUserData"
       @options-submitted="processOptions"
       :data="updatedData"

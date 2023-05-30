@@ -7,7 +7,7 @@
 
 import { ref } from 'vue';
 
-const emit = defineEmits(['backTab', 'optionsSubmitted']);
+const emit = defineEmits(['changeTab', 'optionsSubmitted']);
 
 const options = ref({
   priceToggle: 'Yes',
@@ -18,7 +18,7 @@ const options = ref({
 
 // Emits an event to return back to the Upload section
 function backTab() {
-  emit('backTab', 'UserUpload');
+  emit('changeTab', 'UserUpload');
 }
 
 // Emits an event to submit options to ToolMain

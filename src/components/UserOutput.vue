@@ -3,12 +3,12 @@
 import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 
-const emit = defineEmits(['backTab'])
+const emit = defineEmits(['changeTab'])
 
 const props = defineProps(['data']);
 
 function backTab() {
-  emit('backTab', 'OutputOptions')
+  emit('changeTab', 'OutputOptions')
 }
 
 
