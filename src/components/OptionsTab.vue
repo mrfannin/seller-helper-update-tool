@@ -4,6 +4,7 @@
  * Primarily a form in the template with the different options.
  */
 
+import TabComponent from './TabComponent.vue';
 import { ref } from 'vue';
 import HelpTooltip from './HelpTooltip.vue';
 
@@ -30,12 +31,14 @@ function submitOptions() {
 </script>
 
 <template>
-  <div class="section">
-    <div class="info mb-4 border-b border-black pb-4">
-      <h2 class="pb-4 text-xl font-bold">Choose Options</h2>
+  <TabComponent>
+    <template #title> Choose Options</template>
+
+    <template #intro>
       <p>Select the options below for the updated spreadsheet.</p>
-    </div>
-    <div class="mainSection">
+    </template>
+
+    <template #main>
       <form class="flex flex-col space-y-4 text-lg">
         <div class="flex justify-between space-x-60">
           <div class="relative">
@@ -102,12 +105,13 @@ function submitOptions() {
           />
         </div>
       </form>
-    </div>
-    <div class="continueButtons mt-8 space-x-6">
+    </template>
+
+    <template #buttons>
       <button class="btn-primary" @click.prevent="backTab">Back</button>
       <button class="btn-primary" @click.prevent="submitOptions">
         Continue
       </button>
-    </div>
-  </div>
+    </template>
+  </TabComponent>
 </template>

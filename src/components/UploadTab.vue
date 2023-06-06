@@ -6,6 +6,7 @@
  * When uploaded, it emits an event back to ToolMain with the data
  */
 
+import TabComponent from './TabComponent.vue';
 import * as Papa from 'papaparse';
 import { ref } from 'vue';
 
@@ -98,19 +99,19 @@ function fileUploaded() {
 </script>
 
 <template>
-  <div class="section">
-    <div class="info mb-4 border-b border-black pb-4">
-      <h2 class="pb-4 text-xl font-bold">Upload Warhead Export</h2>
-      <p>
+  <TabComponent>
+    <template #title>Upload Warhead Export</template>
+    <template #intro
+      ><p>
         Upload a default Warhead export with Seller Helper products on it. This
         can be done by going to Dashboard > Store > Products, and clicking the
         Export button at the top of the page. Leave the options as they are, and
         then click Export. This will download a spreadsheet of all of the
         products, which can then be uploaded below.
-      </p>
-    </div>
-    <div class="mainSection">
-      <div class="uploadSection space-x-6" v-if="!dataReady">
+      </p></template
+    >
+    <template #main>
+      <div class="space-x-6" v-if="!dataReady">
         <button class="btn-primary" @click.prevent="backTab">Back</button>
         <input
           type="file"
@@ -126,17 +127,17 @@ function fileUploaded() {
           {{ message }}
         </p>
       </div>
-      <div class="continueSection" v-if="dataReady">
+      <div v-if="dataReady">
         <p class="mb-4 rounded-sm bg-slate-50/75 px-3 py-2">{{ fileName }}</p>
-        <div class="space-x-6">
-          <button @click.prevent="resetData" class="btn-primary">
-            Change File
-          </button>
-          <button @click.prevent="fileUploaded" class="btn-primary">
-            Continue
-          </button>
-        </div>
       </div>
-    </div>
-  </div>
+    </template>
+    <template #buttons v-if="dataReady">
+      <button @click.prevent="resetData" class="btn-primary">
+        Change File
+      </button>
+      <button @click.prevent="fileUploaded" class="btn-primary">
+        Continue
+      </button>
+    </template>
+  </TabComponent>
 </template>

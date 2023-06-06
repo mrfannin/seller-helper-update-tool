@@ -79,7 +79,7 @@ async function processOptions(options) {
       @file-uploaded="processUserData"
       @options-submitted="processOptions"
       :data="updatedData"
-      class="flex basis-5/6 flex-col items-center px-20 pt-6 text-center"
+      class="flex basis-5/6 flex-col items-center px-20 text-center justify-center"
     ></component>
   </div>
   <div

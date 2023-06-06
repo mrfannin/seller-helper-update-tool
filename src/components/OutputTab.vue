@@ -3,6 +3,7 @@
  * Final tab that creates a download of the finished data.
  * Has a button to download the file.
  */
+import TabComponent from './TabComponent.vue';
 import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 
@@ -18,7 +19,6 @@ function backTab() {
 
 // Executed when user clicks the download button, creates and downloads the final csv
 function downloadFile() {
-
   // Uses PapaParse to unparse the data, and create a new CSV file with that data
   const updatedCSV = new Blob([Papa.unparse(props.data)], {
     type: 'text/csv',
@@ -37,21 +37,21 @@ function downloadFile() {
 </script>
 
 <template>
-  <div class="section">
-    <div class="info mb-4 border-b border-black pb-4">
-      <h2 class="pb-4 text-lg font-bold">Download File</h2>
-      <p>
+  <TabComponent>
+    <template #title>Download File</template>
+
+    <template #intro
+      ><p>
         The download is ready. Click the button below to download the
         spreadsheet. This file can than be imported into Warhead.
-      </p>
-    </div>
-    <div class="mainSection">
-      <div class="continueButtons space-x-6">
-        <button class="btn-primary" @click.prevent="backTab">Back</button>
-        <button class="btn-primary" @click.prevent="downloadFile">
-          Download File
-        </button>
-      </div>
-    </div>
-  </div>
+      </p></template
+    >
+
+    <template #buttons>
+      <button class="btn-primary" @click.prevent="backTab">Back</button>
+      <button class="btn-primary" @click.prevent="downloadFile">
+        Download File
+      </button>
+    </template>
+  </TabComponent>
 </template>
