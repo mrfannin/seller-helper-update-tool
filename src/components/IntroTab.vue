@@ -1,8 +1,13 @@
 <script setup>
+/**
+ * Starting tab in the app.
+ * Has an intro and link to the tutorial video, and a button to move to the Upload Tab.
+ */
 const emit = defineEmits(['changeTab']);
 
+// Emits changeTab event to ToolMain to change to UploadTab
 function nextTab() {
-  emit('changeTab', 'UserUpload');
+  emit('changeTab', 'UploadTab');
 }
 </script>
 

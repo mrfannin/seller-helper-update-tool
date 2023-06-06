@@ -1,6 +1,12 @@
 <script setup>
+/**
+ * Tooltips that are only shown on the Options Tab for now
+ * When user hovers over question mark icon, shows the info
+ * Info is passed in as a slot from the Options Tab
+ */
 import { ref } from 'vue';
 
+// When mouse enters question mark icon, sets to true, and false when mouse leaves. Shows tooltip when true
 const isHover = ref(false);
 </script>
 

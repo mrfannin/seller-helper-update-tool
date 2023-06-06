@@ -1,8 +1,7 @@
 <script setup>
 /**
- * Data: User Options choses
- * Usage: Shows the options for the updated data, pricing formula and quantity options
- *        Emits choices back to ToolMain when done
+ * Tab for the user to select the options they want on the file.
+ * Primarily a form in the template with the different options.
  */
 
 import { ref } from 'vue';
@@ -10,6 +9,8 @@ import HelpTooltip from './HelpTooltip.vue';
 
 const emit = defineEmits(['changeTab', 'optionsSubmitted']);
 
+// All of the options are connected to the form with v-model
+// pricePercentage and enabledCutoff only show when the toggles are Yes
 const options = ref({
   priceToggle: 'Yes',
   pricePercentage: 25,
@@ -19,10 +20,10 @@ const options = ref({
 
 // Emits an event to return back to the Upload section
 function backTab() {
-  emit('changeTab', 'UserUpload');
+  emit('changeTab', 'UploadTab');
 }
 
-// Emits an event to submit options to ToolMain
+// Emits an event to ToolMain with the selected options as a parameter
 function submitOptions() {
   emit('optionsSubmitted', options.value);
 }

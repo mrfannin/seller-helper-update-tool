@@ -1,13 +1,19 @@
 <script setup>
+/**
+ * Navigation on the left side of the app.
+ * Not actually functional for now, other than showing the step that the user is on.
+ */
 import { ref } from 'vue';
 
+// Gets the current tab from ToolMain
 const props = defineProps(['currentTab']);
 
+// An array of the tab components and their corresponding name to show in the Navigation
 const tabList = ref([
-  { comp: 'Intro', name: 'Start' },
-  { comp: 'UserUpload', name: 'Upload File' },
-  { comp: 'OutputOptions', name: 'Options' },
-  { comp: 'UserOutput', name: 'Download File' },
+  { comp: 'IntroTab', name: 'Start' },
+  { comp: 'UploadTab', name: 'Upload File' },
+  { comp: 'OptionsTab', name: 'Options' },
+  { comp: 'OutputTab', name: 'Download File' },
 ]);
 </script>
 

@@ -1,8 +1,9 @@
 <script setup>
 /**
- * Data: User data once uploaded
- * Usage: This section is for the user to upload their warhead export. Once uploaded, it will check if it's a valid upload and either show errors or reveal the next button.
- *        When hitting next, it emits an event to ToolMain with the data, and to proceed to the next screen.
+ * The user uploads their Warhead export in this tab.
+ * The export must be the default options, and must have products with Shipping Groups list as The Seller Helper (or some variations of that)
+ * Shows any errors if an invalid file is uploaded
+ * When uploaded, it emits an event back to ToolMain with the data
  */
 
 import * as Papa from 'papaparse';
@@ -10,30 +11,38 @@ import { ref } from 'vue';
 
 const emit = defineEmits(['fileUploaded', 'changeTab']);
 
+// Potential error message, set during checkFile or checkData
 const message = ref('');
 
+// Starts false, but is set to true when data is checked with no issues. When true, shows options to continue
 const dataReady = ref(false);
 
+// Set when file is checked with no issues. Confirms to user the file that was imported
 const fileName = ref('');
 
-const isProcessing = ref(false);
-
+// Global variable for data, just so it doesn't have to be passed back and forth
 let userData = null;
 
-// Triggers when file is uploaded. Checks if it is a csv. Uses PapaParse to parse into object, and checks if it is valid.
+// DATA PROCESSING METHODS
+
+// Triggers when file is uploaded. Starts processing of the file
 function checkFile(event) {
   let file = event.target.files[0];
 
+  // Checks if the file is a csv. If not, shows an error and returns
   if (file.type !== 'text/csv') {
     message.value = 'File is not a CSV';
     return;
   }
 
+  // Uses PapaParse to parse the csv, when complete, sends the results to checkData
   Papa.parse(file, {
     delimeter: ',',
     header: true,
     complete: (results) => {
       checkData(results);
+
+      // after checking the data, sets to fileName to show on the page
       if (userData !== null) {
         fileName.value = file.name;
       }
@@ -41,39 +50,50 @@ function checkFile(event) {
   });
 }
 
-// Checks if data includes a header for shippingGroup, and that there are products from the sellerhelper
-// Sets a message if there are errors, sets userData to filtered data otherwise
+// Checks the data for potential errors, then filters the Seller Helper data
 function checkData(results) {
+  // Checks if the data has a shippingGroup column. If not, shows an error that the file is not a default Warhead export
   if (!results.meta.fields.includes('shippingGroup')) {
     message.value = 'File is not a Warhead Export';
-  } else {
+  }
+
+  // Filters the data by the shipping group column, checks it against common spellings of The Seller Helper
+  else {
     let testRegEx = /([Tt]he)? ?[Ss]eller ?[Hh]elper/;
     let filteredData = results.data.filter(
       (line) => line.shippingGroup === 'The Seller Helper'
     );
+
+    // If there weren't any products found with a Seller Helper shipping group, shows an error
     if (filteredData.length === 0) {
       message.value =
         'No products from The Seller Helper. Make sure the Shipping Group is named correctly.';
-    } else {
+    }
+
+    // Data is checked and good to go, sets the userData to the filtered data, and sets dataReady to show the continue section
+    else {
       userData = filteredData;
       dataReady.value = true;
     }
   }
 }
 
-// Resets uploaded data, triggered from button after user uploads file
+// BUTTON EMITS
+
+// Emits changeTab event to ToolMain, going back to the intro. Button only shows before the file is uploaded
+function backTab() {
+  emit('changeTab', 'IntroTab');
+}
+
+// Resets uploaded data and reshows the upload section, triggered from a button after user uploads file
 function resetData() {
   userData = null;
   dataReady.value = false;
 }
 
-// Emits an event to ToolMain, sends filtered data back as an argument
+// Emits fileUploaded event to ToolMain when the user selects Next, sends filtered data back as an argument. Button is only shown after file is uploaded
 function fileUploaded() {
   emit('fileUploaded', userData);
-}
-
-function backTab() {
-  emit('changeTab', 'Intro');
 }
 </script>
 

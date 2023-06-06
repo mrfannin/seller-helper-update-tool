@@ -1,31 +1,30 @@
 <script setup>
-/** Main Component of the App
- * Child Components: UserUpload, SellerHelperManager, OutputOptions, UserOutput
- * Data: Spreadsheet data object, User Options Object
- * Usage: Switches between different sections of the app
+/** Main Component of the app. 
+ * Moves through the different tabs, and stores the data as the user moves through. Shows a loading screen when processing the data.
+ * Child Components: Intro, UserUpload, OutputOptions, UserOutput, Navigation
  */
 
 import { ref } from 'vue';
-import Intro from './Intro.vue';
-import UserUpload from './UserUpload.vue';
-import OutputOptions from './OutputOptions.vue';
-import UserOutput from './UserOutput.vue';
+import IntroTab from './IntroTab.vue';
+import UploadTab from './UploadTab.vue';
+import OptionsTab from './OptionsTab.vue';
+import OutputTab from './OutputTab.vue';
 import Navigation from './Navigation.vue';
 
 import { processData } from '../scripts/UpdateProcessor.js';
 
-const currentTab = ref('Intro');
+// Different tab components must be added here
+const tabs = {
+  IntroTab,
+  UploadTab,
+  OptionsTab,
+  OutputTab,
+};
 
-const updatedData = ref(null);
+// Starting tab should always be Intro
+const currentTab = ref('IntroTab');
 
 const isProcessing = ref(false);
-
-const tabs = {
-  Intro,
-  UserUpload,
-  OutputOptions,
-  UserOutput,
-};
 
 // Spreadsheet data, starts null, but fills in from components as the process goes on
 const data = {
@@ -34,24 +33,34 @@ const data = {
   sellerHelperData: null,
 };
 
+// Updated data that has been matched with the user's SKUs. Starts null and is set in processOptions()
+const updatedData = ref(null);
+
+
+// Executes from the tab components and moves to the specified tab
 function processChangeTab(tab) {
   currentTab.value = tab;
 }
 
+// Executes after uploading file in UserUpload and clicking Next, gets filtered data and sets it in the data object, then moves to OutputOptions
 function processUserData(processedData) {
   data.userData = processedData;
-  currentTab.value = 'OutputOptions';
+  currentTab.value = 'OptionsTab';
 }
 
-// Receives the options from OutputOptions
+// Executes when user clicks Next in UserOptions
 async function processOptions(options) {
+
+  // Receives options from UserOptions
   data.userOptions = options;
+
+  // Starts loading icon
   isProcessing.value = true;
 
-  // processData is a promise that eventually returns the updated data in an array
+  // processData is a promise in UpdateProcessor.js that eventually returns the updated data as an array, and moves to the UserOutput tab
   updatedData.value = await processData(data);
   isProcessing.value = false;
-  currentTab.value = 'UserOutput';
+  currentTab.value = 'OutputTab';
 }
 </script>
 
